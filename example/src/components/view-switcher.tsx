@@ -6,13 +6,19 @@ type ViewSwitcherProps = {
   onViewListChange: (isChecked: boolean) => void;
   onViewModeChange: (viewMode: ViewMode) => void;
 };
-export const ViewSwitcher: React.SFC<ViewSwitcherProps> = ({
+export const ViewSwitcher: React.FC<ViewSwitcherProps> = ({
   onViewModeChange,
   onViewListChange,
   isChecked,
 }) => {
   return (
     <div className="ViewContainer">
+      <button
+        className="Button"
+        onClick={() => onViewModeChange(ViewMode.Hour)}
+      >
+        Hour
+      </button>
       <button
         className="Button"
         onClick={() => onViewModeChange(ViewMode.QuarterDay)}
@@ -40,7 +46,18 @@ export const ViewSwitcher: React.SFC<ViewSwitcherProps> = ({
       >
         Month
       </button>
-
+      <button
+        className="Button"
+        onClick={() => onViewModeChange(ViewMode.Year)}
+      >
+        Year
+      </button>
+      <button
+        className="Button"
+        onClick={() => onViewModeChange(ViewMode.QuarterYear)}
+      >
+        Year
+      </button>
       <div className="Switch">
         <label className="Switch_Toggle">
           <input

@@ -4,13 +4,15 @@ import { ViewSwitcher } from "./components/view-switcher";
 import { getStartEndDateForProject, initTasks } from "./helper";
 import "gantt-task-react/dist/index.css";
 
-//Init
+// Init
 const App = () => {
   const [view, setView] = React.useState<ViewMode>(ViewMode.Day);
   const [tasks, setTasks] = React.useState<Task[]>(initTasks());
   const [isChecked, setIsChecked] = React.useState(true);
-  let columnWidth = 60;
-  if (view === ViewMode.Month) {
+  let columnWidth = 65;
+  if (view === ViewMode.Year) {
+    columnWidth = 350;
+  } else if (view === ViewMode.Month) {
     columnWidth = 300;
   } else if (view === ViewMode.Week) {
     columnWidth = 250;
@@ -52,6 +54,10 @@ const App = () => {
     alert("On Double Click event Id:" + task.id);
   };
 
+  const handleClick = (task: Task) => {
+    console.log("On Click event Id:" + task.id);
+  };
+
   const handleSelect = (task: Task, isSelected: boolean) => {
     console.log(task.name + " has " + (isSelected ? "selected" : "unselected"));
   };
@@ -62,7 +68,7 @@ const App = () => {
   };
 
   return (
-    <div>
+    <div className="Wrapper">
       <ViewSwitcher
         onViewModeChange={viewMode => setView(viewMode)}
         onViewListChange={setIsChecked}
@@ -76,6 +82,7 @@ const App = () => {
         onDelete={handleTaskDelete}
         onProgressChange={handleProgressChange}
         onDoubleClick={handleDblClick}
+        onClick={handleClick}
         onSelect={handleSelect}
         onExpanderClick={handleExpanderClick}
         listCellWidth={isChecked ? "155px" : ""}
@@ -89,6 +96,7 @@ const App = () => {
         onDelete={handleTaskDelete}
         onProgressChange={handleProgressChange}
         onDoubleClick={handleDblClick}
+        onClick={handleClick}
         onSelect={handleSelect}
         onExpanderClick={handleExpanderClick}
         listCellWidth={isChecked ? "155px" : ""}

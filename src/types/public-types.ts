@@ -1,10 +1,13 @@
 export enum ViewMode {
+  Hour = "Hour",
   QuarterDay = "Quarter Day",
   HalfDay = "Half Day",
   Day = "Day",
   /** ISO-8601 week */
   Week = "Week",
   Month = "Month",
+  QuarterYear = "QuarterYear",
+  Year = "Year",
 }
 export type TaskType = "task" | "milestone" | "project";
 export interface Task {
@@ -27,6 +30,7 @@ export interface Task {
   project?: string;
   dependencies?: string[];
   hideChildren?: boolean;
+  displayOrder?: number;
 }
 
 export interface EventOption {
@@ -42,6 +46,10 @@ export interface EventOption {
    * Invokes on bar double click.
    */
   onDoubleClick?: (task: Task) => void;
+  /**
+   * Invokes on bar click.
+   */
+  onClick?: (task: Task) => void;
   /**
    * Invokes on end and start time change. Chart undoes operation if method return false or error.
    */
@@ -68,6 +76,8 @@ export interface EventOption {
 
 export interface DisplayOption {
   viewMode?: ViewMode;
+  viewDate?: Date;
+  preStepsCount?: number;
   /**
    * Specifies the month name language. Able formats: ISO 639-2, Java Locale
    */
